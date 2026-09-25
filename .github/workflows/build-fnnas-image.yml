@@ -260,6 +260,7 @@ on:
           - yskj
           - zcube1-max
           - zk-r39a
+          - ztl-a568
           - zysj
       kernel_repo:
         description: "Set fnnas kernel repository"
