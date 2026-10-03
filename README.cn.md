@@ -60,7 +60,7 @@
 
 1. `Rockchip` 平台的安装方法请参阅说明文档 [第 8 章节](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.cn.md) 的介绍，安装流程与 Armbian 相同。
 
-2. `Amlogic` 和 `Allwinner` 平台，使用 [Rufus](https://rufus.ie/) 或 [balenaEtcher](https://www.balena.io/etcher/) 等工具将系统镜像写入 USB 设备，然后将写好的 USB 插入盒子。在路由器管理界面中查找新上线的名为 debian 的设备，获取其 IP 地址（例如：`192.168.1.15`），然后通过浏览器访问 http://192.168.1.15:5666 进入飞牛账号创建界面。创建自定义账号后登录飞牛系统，在 `系统设置` → `SSH` 中开启 SSH 功能，随后使用 SSH 客户端连接系统终端，执行以下命令：
+2. `Amlogic` 和 `Allwinner` 平台，使用 [Rufus](https://rufus.ie/) 或 [balenaEtcher](https://www.balena.io/etcher/) 等工具将系统镜像写入 USB 设备，然后将写好的 USB 插入盒子。在路由器管理界面中查找新上线的名为 `debian` 的设备，获取其 IP 地址（例如：`192.168.1.15`），然后通过浏览器访问 http://192.168.1.15:5666 进入飞牛账号创建界面。创建自定义账号后登录飞牛系统，在 `系统设置` → `SSH` 中开启 SSH 功能，随后使用 SSH 客户端连接系统终端，执行以下命令：
 
 ```shell
 sudo -i
@@ -104,7 +104,7 @@ fnnas-update
 | -s       | 无           | 无/磁盘名称     | [SOS] 恢复 eMMC/NVMe/sdX 等磁盘中的系统内核 |
 | -h       | 无           | 无             | 查看使用帮助                       |
 
-举例: `fnnas-update -k 6.18.18`
+举例：`fnnas-update -k 6.18.18`
 
 通过 `-k` 参数指定内核版本号时，可以准确指定具体版本号，例如：`fnnas-update -k 6.18.18`，也可以指定内核系列前缀，例如：`fnnas-update -k 6.18`，指定系列前缀时将自动采用该系列的最新版本。
 
@@ -172,15 +172,15 @@ sudo apt-get install -y $(cat make-fnnas/script/ubuntu2404-make-fnnas-depends)
 
 - ### 本地化打包镜像参数说明
 
-| 参数  | 含义       | 说明        |
-| ---- | ---------- | ---------- |
-| -b   | Board      | 指定目标设备代号。您可以指定具体设备进行编译（如 `-b s905x3`），或使用下划线连接多个设备代号同批编译（如 `-b s905x3_s905d`）。本参数还支持通过特殊关键字进行批量编译：`all` 表示编译全部设备，`first50` 表示编译设备库中的前 50 个，`range50_100` 表示编译从第 51 个至第 100 个设备（`range100_150` 同理），`last20` 表示最后 20 个。此外，支持按硬件平台（`amlogic`、`rockchip`、`allwinner`）进行分类编译，直接输入平台名称即可编译对应的所有镜像，例如 `-b amlogic`；若在平台名称后附加数值，则可指定编译该平台列表中的特定范围，例如 `-b amlogic50` 表示编译 Amlogic 平台支持列表中的前 50 个设备，`-b amlogic50_100` 表示编译从第 51 个至第 100 个设备。具体的设备代号支持列表，请详见 [model_database.conf](make-fnnas/fnnas-files/common-files/etc/model_database.conf) 中的 `BOARD` 配置项。默认值：`all` |
-| -r   | KernelRepo | 指定 github.com 内核仓库的 `<owner>/<repo>`。默认值：`ophub/fnnas` |
-| -k   | Kernel     | 指定 [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) 名称，如 `-k 6.18.18` 。多个内核使用 `_` 进行连接，如 `-k 6.18.6_6.18.18` 。 |
-| -a   | AutoKernel | 设置是否自动采用同系列最新版本内核。当为 `true` 时，将自动在内核库中检查 `-k` 指定的内核（如 6.18.18）同系列是否存在更新版本，若存在则自动切换至最新版本。设置为 `false` 时将编译指定版本的内核。默认值：`true` |
-| -s   | Size       | 设置系统镜像分区大小（单位：MiB）。仅设置 `ROOTFS` 分区大小时可只指定一个数值，例如：`-s 4096`。需同时设置 `BOOTFS` 和 `ROOTFS` 分区大小时，使用 / 连接两个数值，例如：`-s 512/4096`。默认值：`512/4096` |
-| -e   | RootfsExpand | 设置系统根分区自动扩容大小（单位：GiB）。默认值：`16` |
-| -n   | BuilderName | 设置 FnNAS 系统构建者签名。签名中请勿包含空格。默认值：`无` |
+| 参数 | 含义 | 说明 |
+| ---- | ---- | ---- |
+| -b | Board | 指定目标设备代号。您可以指定具体设备进行编译（如 `-b s905x3`），或使用下划线连接多个设备代号同批编译（如 `-b s905x3_s905d`）。本参数还支持通过特殊关键字进行批量编译：`all` 表示编译全部设备，`first50` 表示编译设备库中的前 50 个，`range50_100` 表示编译从第 51 个至第 100 个设备（`range100_150` 同理），`last20` 表示最后 20 个。此外，支持按硬件平台（`amlogic`、`rockchip`、`allwinner`）进行分类编译，直接输入平台名称即可编译对应的所有镜像，例如 `-b amlogic`；若在平台名称后附加数值，则可指定编译该平台列表中的特定范围，例如 `-b amlogic50` 表示编译 Amlogic 平台支持列表中的前 50 个设备，`-b amlogic50_100` 表示编译从第 51 个至第 100 个设备。具体的设备代号支持列表，请详见 [model_database.conf](make-fnnas/fnnas-files/common-files/etc/model_database.conf) 中的 `BOARD` 配置项。默认值：`all` |
+| -r | KernelRepo | 指定 github.com 内核仓库的 `<owner>/<repo>`。默认值：`ophub/fnnas` |
+| -k | Kernel | 指定 [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) 版本，如 `-k 6.18.18`。多个内核使用 `_` 进行连接，如 `-k 6.18.6_6.18.18`。 |
+| -a | AutoKernel | 设置是否自动采用同系列最新版本内核。当为 `true` 时，将自动在内核库中检查 `-k` 指定的内核（如 6.18.18）同系列是否存在更新版本，若存在则自动切换至最新版本。设置为 `false` 时将编译指定版本的内核。默认值：`true` |
+| -s | Size | 设置系统镜像分区大小（单位：MiB）。仅设置 `ROOTFS` 分区大小时可只指定一个数值，例如：`-s 4096`。需同时设置 `BOOTFS` 和 `ROOTFS` 分区大小时，使用 / 连接两个数值，例如：`-s 512/4096`。默认值：`512/4096` |
+| -e | RootfsExpand | 设置系统根分区自动扩容大小（单位：GiB）。默认值：`16` |
+| -n | BuilderName | 设置 FnNAS 系统构建者签名。签名中请勿包含空格。默认值：`无` |
 
 - `sudo ./renas` : 使用默认配置，对全部型号的电视盒子进行打包。
 - `sudo ./renas -b s905x3 -k 6.18.18` : 推荐使用。使用默认配置打包指定内核。
@@ -229,7 +229,7 @@ sudo apt-get install -y $(cat make-fnnas/script/ubuntu2404-make-fnnas-depends)
 | -r   | debs_repo     | 指定 github.com 上 debs 内核仓库的 `<owner>/<repo>`。默认值：`ophub/fnnas` |
 | -e   | debs_install  | 设置是否安装官方提供的不同平台 debs 格式内核包。可选值：`amlogic` / `rockchip` / `allwinner` / `none`。默认值：`none` |
 | -t   | dtbs_install  | 设置是否补充安装官方缺失的 dtbs 文件。可选值：`true` / `false`。默认值：`true` |
-| -k   | dtbs_version  | 指定 [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) 名称，如 `-k 6.18.18`。默认值：`6.18.y` |
+| -k   | dtbs_version  | 指定 [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) 版本，如 `-k 6.18.18`。默认值：`6.18.y` |
 
 - `sudo ./rekernel` : 使用默认配置。不安装 debs 内核包也不补充 dtbs 文件，直接对当前 FnNAS 镜像中的内核进行打包。
 - `sudo ./rekernel -e amlogic` : 先将 amlogic 的 debs 内核包安装到当前系统，然后进行内核打包。
@@ -294,4 +294,4 @@ sudo apt-get install -y $(cat make-fnnas/script/ubuntu2404-make-fnnas-depends)
 
 ## License
 
-The fnnas © OPHUB is licensed under [GPL-2.0](LICENSE)
+fnnas © OPHUB is licensed under [GPL-2.0](LICENSE)

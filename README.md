@@ -61,7 +61,7 @@ Select the FnNAS system corresponding to your device model. Refer to the respect
 
 1. For `Rockchip` platforms, please refer to [Chapter 8](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.cn.md) of the documentation. The installation procedure is the same as Armbian.
 
-2. For `Amlogic` and `Allwinner` platforms, use tools like [Rufus](https://rufus.ie/) or [balenaEtcher](https://www.balena.io/etcher/) to write the system image to a USB drive, then insert the prepared USB drive into the box. Check your router's management interface for a newly connected device named 'debian' and obtain its IP address (e.g., `192.168.1.15`). Access http://192.168.1.15:5666 via a browser to enter the FnNAS account creation interface. After creating a custom account and logging into the FnNAS system, enable SSH in `System Settings` → `SSH`. Then use an SSH client to connect to the system terminal and execute the following commands:
+2. For `Amlogic` and `Allwinner` platforms, use tools like [Rufus](https://rufus.ie/) or [balenaEtcher](https://www.balena.io/etcher/) to write the system image to a USB drive, then insert the prepared USB drive into the box. Check your router's management interface for a newly connected device named `debian` and obtain its IP address (e.g., `192.168.1.15`). Access http://192.168.1.15:5666 via a browser to enter the FnNAS account creation interface. After creating a custom account and logging into the FnNAS system, enable SSH in `System Settings` → `SSH`. Then use an SSH client to connect to the system terminal and execute the following commands:
 
 ```shell
 sudo -i
@@ -174,15 +174,15 @@ sudo apt-get install -y $(cat make-fnnas/script/ubuntu2404-make-fnnas-depends)
 
 - ### Local Packaging Parameter Description
 
-| Parameter | Meaning     | Description |
-| ----      | ----------  | ----------  |
-| -b        | Board       | Specifies the target device codename (default is `all`). You can specify a single device (e.g., `-b s905x3`) or connect multiple codenames with underscores to compile them together (e.g., `-b s905x3_s905d`). The parameter also supports special keywords for batch compilation: `all` compiles every device in the database, `first50` compiles the first 50 devices, `range50_100` compiles devices from the 51st to the 100th (similarly for `range100_150`), and `last20` compiles the last 20 devices. Additionally, you can compile by hardware platform (`amlogic`, `rockchip`, `allwinner`) to build all images for that specific platform, for example, `-b amlogic`. Appending numeric values to the platform name allows you to compile a specific range within that platform's support list; for example, `-b amlogic50` builds the first 50 devices under the Amlogic platform, and `-b amlogic50_100` builds the 51st to the 100th devices. For a complete list of supported device codenames, please refer to the `BOARD` configuration items in [model_database.conf](make-fnnas/fnnas-files/common-files/etc/model_database.conf). Default: `all` |
-| -r        | KernelRepo | Specifies the `<owner>/<repo>` of the github.com kernel repository. Default: `ophub/fnnas` |
-| -k        | Kernel     | Specifies the [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) version, e.g., `-k 6.18.18`. Multiple kernels are joined with `_`, e.g., `-k 6.18.6_6.18.18`. |
-| -a        | AutoKernel | Sets whether to automatically adopt the latest kernel version within the same series. When set to `true`, the kernel library is checked for a newer version in the same series as the kernel specified in `-k` (e.g., 6.18.18), and automatically switches to the latest version if available. When set to `false`, the specified kernel version is compiled. Default: `true` |
-| -s        | Size       | Sets the system image partition size (Unit: MiB). When setting only the `ROOTFS` partition size, specify a single value, e.g., `-s 4096`. When setting both `BOOTFS` and `ROOTFS` partition sizes, join the two values with /, e.g., `-s 512/4096`. Default: `512/4096` |
-| -e        | RootfsExpand | Sets the automatic expansion size (Unit: GiB) of the system root partition. Default: `16` |
-| -n        | BuilderName | Sets the FnNAS system builder signature. Do not include spaces in the signature. Default: `None` |
+| Parameter | Meaning | Description |
+| --------- | ------- | ----------- |
+| -b | Board | Specifies the target device codename (default is `all`). You can specify a single device (e.g., `-b s905x3`) or connect multiple codenames with underscores to compile them together (e.g., `-b s905x3_s905d`). The parameter also supports special keywords for batch compilation: `all` compiles every device in the database, `first50` compiles the first 50 devices, `range50_100` compiles devices from the 51st to the 100th (similarly for `range100_150`), and `last20` compiles the last 20 devices. Additionally, you can compile by hardware platform (`amlogic`, `rockchip`, `allwinner`) to build all images for that specific platform, for example, `-b amlogic`. Appending numeric values to the platform name allows you to compile a specific range within that platform's support list; for example, `-b amlogic50` builds the first 50 devices under the Amlogic platform, and `-b amlogic50_100` builds the 51st to the 100th devices. For a complete list of supported device codenames, please refer to the `BOARD` configuration items in [model_database.conf](make-fnnas/fnnas-files/common-files/etc/model_database.conf). Default: `all` |
+| -r | KernelRepo | Specifies the `<owner>/<repo>` of the github.com kernel repository. Default: `ophub/fnnas` |
+| -k | Kernel | Specifies the [kernel](https://github.com/ophub/fnnas/releases/tag/kernel_fnnas) version, e.g., `-k 6.18.18`. Multiple kernels are joined with `_`, e.g., `-k 6.18.6_6.18.18`. |
+| -a | AutoKernel | Sets whether to automatically adopt the latest kernel version within the same series. When set to `true`, the kernel library is checked for a newer version in the same series as the kernel specified in `-k` (e.g., 6.18.18), and automatically switches to the latest version if available. When set to `false`, the specified kernel version is compiled. Default: `true` |
+| -s | Size | Sets the system image partition size (Unit: MiB). When setting only the `ROOTFS` partition size, specify a single value, e.g., `-s 4096`. When setting both `BOOTFS` and `ROOTFS` partition sizes, join the two values with /, e.g., `-s 512/4096`. Default: `512/4096` |
+| -e | RootfsExpand | Sets the automatic expansion size (Unit: GiB) of the system root partition. Default: `16` |
+| -n | BuilderName | Sets the FnNAS system builder signature. Do not include spaces in the signature. Default: `None` |
 
 - `sudo ./renas` : Use default configuration to package for all TV box models.
 - `sudo ./renas -b s905x3 -k 6.18.18` : Recommended. Package with the specified kernel using default configuration.
@@ -294,4 +294,4 @@ The [u-boot](https://github.com/ophub/u-boot), [kernel](https://github.com/ophub
 
 ## License
 
-The fnnas © OPHUB is licensed under [GPL-2.0](LICENSE)
+fnnas © OPHUB is licensed under [GPL-2.0](LICENSE)
